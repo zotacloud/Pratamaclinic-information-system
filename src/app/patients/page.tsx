@@ -37,6 +37,45 @@ export default function PatientsPage() {
     setPatients(newPatients);
   };
 
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const editPatient = (id: number) => {
+    const patient = patients.find((patient) => patient.id === id);
+
+    if (!patient) return;
+
+    setName(patient.name);
+    setAge(String(patient.age));
+    setGender(patient.gender);
+    setPhone(patient.phone);
+
+    setEditingId(id);
+  };
+
+  const updatePatient = () => {
+    const updatedPatients = patients.map((patient) => {
+      if (patient.id === editingId) {
+        return {
+          ...patient,
+          name,
+          age: Number(age),
+          gender,
+          phone,
+        };
+      }
+
+      return patient;
+    });
+
+    setPatients(updatedPatients);
+
+    setName("");
+    setAge("");
+    setGender("Male");
+    setPhone("");
+
+    setEditingId(null);
+  };
+
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
@@ -91,8 +130,14 @@ export default function PatientsPage() {
 
             <td className="p-4">{patient.phone}</td>
 
-            <td className="p-4">
+            <td className="p-4 space-x-2">
+              <Button onClick={() => editPatient(patient.id)}>Edit</Button>
+
               <Button onClick={() => deletePatient(patient.id)}>Delete</Button>
+
+              <Button onClick={editingId === null ? addPatient : updatePatient}>
+                {editingId === null ? "+ Add Patient" : "Update Patient"}
+              </Button>
             </td>
           </tr>
         ))}
