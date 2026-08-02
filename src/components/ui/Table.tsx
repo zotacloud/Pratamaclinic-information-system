@@ -5,19 +5,21 @@ type TableProps = {
 
 export default function Table({ headers, children }: TableProps) {
   return (
-    <div className="bg-white rounded-xl shadow overflow-hidden">
+    <div className="bg-white rounded-xl shadow border overflow-hidden">
       <table className="w-full">
-        <thead className="bg-gray-100">
+        <thead className="bg-blue-600 text-white">
           <tr>
             {headers.map((header) => (
-              <th key={header} className="text-left p-4">
+              <th key={header} className="text-left px-4 py-3 font-semibold">
                 {header}
               </th>
             ))}
           </tr>
         </thead>
 
-        <tbody>{children}</tbody>
+        <tbody className="[&>tr:nth-child(even)]:bg-gray-50 [&>tr:hover]:bg-blue-50">
+          {children}
+        </tbody>
       </table>
     </div>
   );

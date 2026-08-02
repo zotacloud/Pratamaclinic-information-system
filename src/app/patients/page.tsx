@@ -129,7 +129,11 @@ export default function PatientsPage() {
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Patients</h1>
+        <div className="mb-6">
+          <h1 className="text-3xl font-bold text-gray-800">Patients</h1>
+
+          <p className="text-gray-500">Manage patient information</p>
+        </div>
 
         <Button onClick={openAddModal}>+ Add Patient</Button>
       </div>
@@ -169,7 +173,7 @@ export default function PatientsPage() {
         placeholder="Search patient..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="border rounded-lg px-4 py-2 w-full mb-4"
+        className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-5 focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
 
       <Table
@@ -203,9 +207,17 @@ export default function PatientsPage() {
 
               <td className="p-4">
                 <div className="flex gap-2">
-                  <Button onClick={() => editPatient(patient.id)}>Edit</Button>
+                  <Button
+                    className="bg-yellow-500 hover:bg-yellow-600"
+                    onClick={() => editPatient(patient.id)}
+                  >
+                    Edit
+                  </Button>
 
-                  <Button onClick={() => deletePatient(patient.id)}>
+                  <Button
+                    className="bg-red-600 hover:bg-red-700"
+                    onClick={() => deletePatient(patient.id)}
+                  >
                     Delete
                   </Button>
                 </div>
@@ -214,8 +226,8 @@ export default function PatientsPage() {
           ))
         ) : (
           <tr>
-            <td colSpan={8} className="text-center py-6 text-gray-500">
-              No patients found.
+            <td colSpan={8} className="text-center py-10 text-gray-400">
+              No patient data available.
             </td>
           </tr>
         )}
